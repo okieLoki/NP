@@ -8,7 +8,7 @@
 int main(){
 
     int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
-    struct sockaddr_in servaddr, cliaddr;
+    struct sockaddr_in servaddr;
 
     bzero(&servaddr, sizeof(servaddr));
 
@@ -21,12 +21,12 @@ int main(){
     char sendline[255];
     char recvline[255];
 
-    int len = sizeof(cliaddr);
+    int len = sizeof(servaddr);
 
     while(1){
         bzero(recvline, 255);
 
-        recvfrom(sockfd, recvline, 255, 0, (struct sockaddr*) &cliaddr, (socklen_t*)&len);
+        recvfrom(sockfd, recvline, 255, 0, (struct sockaddr*) &servaddr, (socklen_t*)&len);
         printf("Client: %s\n", recvline);
 
         bzero(sendline, 255);
