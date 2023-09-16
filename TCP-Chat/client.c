@@ -11,15 +11,15 @@ int main()
 
     int sockfd = socket(AF_INET, SOCK_STREAM, 0);
 
-    struct sockaddr_in cliaddr;
+    struct sockaddr_in servaddr;
 
-    bzero(&cliaddr, sizeof(cliaddr));
+    bzero(&servaddr, sizeof(servaddr));
 
-    cliaddr.sin_family = AF_INET;
-    cliaddr.sin_port = htons(22000);
-    cliaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+    servaddr.sin_family = AF_INET;
+    servaddr.sin_port = htons(22000);
+    servaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
 
-    connect(sockfd, (struct sockaddr *)&cliaddr, sizeof(cliaddr));
+    connect(sockfd, (struct sockaddr *)&servaddr, sizeof(servaddr));
 
     char sendline[255];
     char recvline[255];
