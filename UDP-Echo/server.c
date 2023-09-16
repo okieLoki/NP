@@ -9,7 +9,7 @@ int main(){
 
     int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
 
-    struct sockaddr_in servaddr;
+    struct sockaddr_in servaddr, cliaddr;
 
     bzero(&servaddr, sizeof(servaddr));
 
@@ -21,12 +21,12 @@ int main(){
 
     char buffer[255];
 
-    int len = sizeof(servaddr);
+    int len = sizeof(cliaddr);
 
     while(1){
         bzero(buffer, 255);
 
-        recvfrom(sockfd, buffer, sizeof(buffer), 0, (struct sockaddr*) &servaddr, (struct socklen_t*) &len);
+        recvfrom(sockfd, buffer, sizeof(buffer), 0, (struct sockaddr*) &cliaddr, (struct socklen_t*) &len);
 
         printf("From client %s", buffer);
 
@@ -42,6 +42,6 @@ int main(){
         char sum_str[10];
         snprintf(sum_str, 10, "%d", sum);
 
-        sendto(sockfd, sum_str, sizeof(sum_str), 0, (struct sockaddr*) &servaddr, len);
+        sendto(sockfd, sum_str, sizeof(sum_str), 0, (struct sockaddr*) &cliaddr, len);
     }
 }
