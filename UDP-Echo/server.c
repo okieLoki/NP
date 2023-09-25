@@ -30,18 +30,6 @@ int main(){
 
         printf("From client %s", buffer);
 
-        char *token = strtok(buffer, " ");
-
-        int sum = 0;
-
-        while(token != NULL){
-            sum += atoi(token);
-            token = strtok(NULL, " ");
-        }
-
-        char sum_str[10];
-        snprintf(sum_str, 10, "%d", sum);
-
-        sendto(sockfd, sum_str, sizeof(sum_str), 0, (struct sockaddr*) &cliaddr, len);
+        sendto(sockfd, buffer, sizeof(buffer), 0, (struct sockaddr*) &cliaddr, len);
     }
 }
